@@ -10,21 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_07_16_182304) do
-=======
 ActiveRecord::Schema.define(version: 2020_07_20_193759) do
->>>>>>> mr/nested_form
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "post_id"
-<<<<<<< HEAD
-=======
     t.index ["post_id"], name: "index_comments_on_post_id"
->>>>>>> mr/nested_form
   end
 
   create_table "posts", force: :cascade do |t|
