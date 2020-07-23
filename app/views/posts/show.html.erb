@@ -1,7 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <%= @post.content %>
-<%= @comment.comment_body %>
+
+<tbody>
+<% @post.comments.each do |x| %>
+  <tr>
+    <td><%= x.comment_body %></td>
+
+  </tr>
+<% end %>
+</tbody>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
