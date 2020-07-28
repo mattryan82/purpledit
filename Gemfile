@@ -52,3 +52,6 @@ end
 
 #add devise for user authentication
 gem 'devise'
+
+# Adding bootstrap as per https://getbootstrap.com/docs/4.5/getting-started/download/
+gem 'bootstrap', '~> 4.5.0'
