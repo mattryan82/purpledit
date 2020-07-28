@@ -4,9 +4,12 @@
 
 <% @listposts.each do |x| %>
   <tr>
-    <td><%= x.content %></td>
+
+    <%= link_to x.content, post_path(x.id) %> 
   </tr>
 
 <% end %>
+
+
 
 
