@@ -52,3 +52,6 @@ end
 
 #add devise for user authentication
 gem 'devise'
+
+#pundit gem for user authorisation
+gem 'pundit'
