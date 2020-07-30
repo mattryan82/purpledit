@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_173812) do
+ActiveRecord::Schema.define(version: 2020_07_30_181141) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "post_id"
+    t.integer "user_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_173812) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
