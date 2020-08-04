@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_action :set_vote, only: [:show, :edit, :update, :destroy]
+  before_action :set_post
   before_action :authorize_post
 
   # GET /votes/1
@@ -21,8 +21,7 @@ class VotesController < ApplicationController
   # POST /votes
   # POST /votes.json
   def create
-    @vote = Vote.new(vote_params)
-    @vote.user = current_user
+    @post.votes.where(user_id: current_user.id).first_or_create
 
     respond_to do |format|
       if @vote.save
@@ -35,24 +34,10 @@ class VotesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /votes/1
-  # PATCH/PUT /votes/1.json
-  def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Vote was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /votes/1
   # DELETE /votes/1.json
   def destroy
-    @vote.destroy
+    @post.votes.where(user_id: current_user.id).destroy_all
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Vote was successfully destroyed.' }
       format.json { head :no_content }
@@ -62,7 +47,7 @@ class VotesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @vote = Vote.find(params[:id])
+      @post = Post.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
