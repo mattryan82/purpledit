@@ -15,8 +15,8 @@ class ApplicationPolicy
   end
 
   def create?
-    #@user.is_admin?
-    false
+    @user.is_admin?
+    true
   end
 
   def new?
