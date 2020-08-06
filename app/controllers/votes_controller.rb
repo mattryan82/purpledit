@@ -1,35 +1,20 @@
 class VotesController < ApplicationController
   before_action :set_post
-  before_action :authorize_post
-
-  # GET /votes/1
-  # GET /votes/1.json
-  def show
-    @vote = Vote.find(params[:id])
-    @comment = Comment.new(post: @post)
-  end
-
-  # GET /votes/new
-  def new
-    @vote = Vote.new
-  end
-
-  # GET /votes/1/edit
-  def edit
-  end
+  
 
   # POST /votes
   # POST /votes.json
   def create
-    @post.votes.where(user_id: current_user.id).first_or_create
-    @vote.user = current_user
+    #@vote = Vote.new(vote_params.merge(user: current_user))
+    @post.votes.create(vote_params.merge(user: current_user))
+   
 
     respond_to do |format|
-      if @vote.save
-        format.html { redirect_to @post, notice: 'Vote was successfully created.' }
+      if @post.votes.create
+        format.html { redirect_to @post, notice: 'Vote was successfully created.'}
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
+        format.html { redirect_to @post, notice: 'Vote was unsuccessfully created.'}
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -38,7 +23,8 @@ class VotesController < ApplicationController
   # DELETE /votes/1
   # DELETE /votes/1.json
   def destroy
-    @post.votes.where(user_id: current_user.id).destroy_all
+    @post.votes.destroy_all(vote_params.merge(user_id: current_user.id))
+
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Vote was successfully destroyed.' }
       format.json { head :no_content }
@@ -48,12 +34,12 @@ class VotesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find(params[:post_id])
     end
 
     # Only allow a list of trusted parameters through.
     def vote_params
-      params.require(:post, :user).permit(:vote_type)
+      params.require(:vote).permit(:vote_type)
     end
 
     def authorize_vote

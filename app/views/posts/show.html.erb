@@ -14,6 +14,23 @@
 <%= link_to 'Edit', post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
 
+<div class="frow">
+  <%= form_with(model: [@post, Vote.new], local: true) do |f| %>
+
+    <%= f.hidden_field :vote_type, value: :up %>
+
+    <%= f.submit 'Up' %>
+    
+  <% end %>
+
+  <%= form_with(model: [@post, Vote.new], local: true) do |f| %>
+
+    <%= f.hidden_field :vote_type, value: :down %>
+
+    <%= f.submit 'Down' %>
+
+  <% end %>
+</div>
 
 <h1>New Comment</h1>
 
