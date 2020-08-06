@@ -22,6 +22,7 @@ class VotesController < ApplicationController
   # POST /votes.json
   def create
     @post.votes.where(user_id: current_user.id).first_or_create
+    @vote.user = current_user
 
     respond_to do |format|
       if @vote.save
